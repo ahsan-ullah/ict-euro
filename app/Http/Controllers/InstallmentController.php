@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Installment;
+use App\Models\Payment;
 
 class InstallmentController extends Controller
 {
     protected $installment;
 
-    public function __construct(Installment $installment)
+    public function __construct(Installment $installment, Payment $payment)
     {
         $this->middleware('auth:api');
         $this->installment = $installment;
+        $this->payment = $payment;
     }
     /**
      * Display a listing of the resource.
@@ -96,7 +98,7 @@ class InstallmentController extends Controller
             'status' => true,
             'data' => [],
             'errors' => '', 
-            'message' => "A new isntallment has been successfully created",
+            'message' => "A new installment has been successfully created",
         ]);
 
     }
@@ -110,25 +112,77 @@ class InstallmentController extends Controller
 
      public function show($id)
     {
-        $customer = $this->customer::with('installments')
+        $installment = $this->installment::with('customer', 'payment')
             ->where('id', $id)
             ->first();
-        if (!empty($customer)) {
+        if (!empty($installment)) {
             return response()->json([
                 'status' => true,
                 'errors' => [],
-                'data' => $customer,
-                'message' => "Customer successfully loaded"
+                'data' => $installment,
+                'message' => "Installment successfully loaded"
             ]);
         }else{
             return response()->json([
                 'status' => false,
                 'errors' => [],
-                'data' => $customer,
-                'message' => "Customer not found"
+                'data' => $installment,
+                'message' => "Installment not found"
             ]);
         }
     }
+
+
+    public function getById($id)
+    {
+        return $this->installment::with('customer', 'payment')
+            ->where('id', $id)
+            ->first();
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+     public function payment(Request $request)
+     {
+        $installment = $this->getById($request->id);
+        // return $installment;
+        if ($installment) 
+        {
+            $payment = $this->payment;
+            $payment->installment_id = $installment->id;
+            $payment->trx_number = "TRX-".date('Ymdhis').rand(1000,9999);
+            $payment->customer_id = $installment->customer_id;
+            $payment->method = "Stripe";
+            $payment->payment_date = date('Y-m-d');
+            $payment->description = NULL;
+            $payment->status = 1;
+            $payment->save();
+            $installment->status = 1;
+            $installment->update();
+            return response()->json([
+                'status' => true,
+                'data' => [],
+                'errors' => '', 
+                'message' => "A installment payment has been successfully created",
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status' => false,
+                'data' => [],
+                'errors' => '', 
+                'message' => "installment is invalid",
+            ]);
+        }
+     }
     
 
    /**

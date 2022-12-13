@@ -30,21 +30,21 @@ message.
 ● If you can do Unit and Feature Testing, it will be a plus point for you.
 
 ## I used the following
-- Laravel 9.19 (Framework)
+- Laravel 9.43 (Framework)
 - JWT Authentication (Authentication)
-- Laravel Notification (Sending New Post Notification to all users through Database chanel)
-- Laravel Queue (Used for sending Notification)
-- Taravel Task Scheduling (Used to delete 15 days old posts)
 # How to Setup
 1. Pull the repository form 
-https://github.com/ahsan-ullah/Larave-Test.git
+https://github.com/ahsan-ullah/ict-euro.git
 - or Run the following command 
-> git clone https://github.com/ahsan-ullah/Larave-Test.git
+> git clone https://github.com/ahsan-ullah/ict-euro.git
 
 ## Run the following (quote) commands
 > cp .env.example .env
-- Create a database by laravel_test
-- Update .env file database name to laravel_test
+- Create a database by ict_euro
+- Update .env file database name to ict_euro
+- STRIPE_KEY=pk_test_reFxwbsm9cdCKASdTfxAR
+- STRIPE_SECRET=sk_test_oQMFWteJiPd4wj4AtgApY
+
 > composer install
 - or
 > composer update
@@ -57,12 +57,12 @@ https://github.com/ahsan-ullah/Larave-Test.git
 
 > php artisan serve
 
-> php artisan storage:link
-
-> php artisan queue:listen
-
-> php artisan schedule:work
-
+## Use Stripe card number as follows for payment
+- Name: Test
+- Number: 4242 4242 4242 4242
+- CSV: 123
+- Expiration Month: 12
+- Expiration Year: 2028
 ## Postman Collection
 Postman Collection Link:
 [Import Postmean Collection](https://www.getpostman.com/collections/c69ac03e69ca2dd85fcc)
@@ -73,7 +73,7 @@ Postman Collection Documentaiont Link:
 [Postmean Collection Documentaiont](https://documenter.getpostman.com/view/1952071/UzJPLv1A)
 https://documenter.getpostman.com/view/1952071/UzJPLv1A
 ## Dependencies
-- PHP 8 or hire
+- PHP 8.1 or hire
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
