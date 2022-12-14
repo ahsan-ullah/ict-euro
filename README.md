@@ -1,5 +1,4 @@
 
-# About ICTEuro - Evaluation Test
 Build a System to create Customer Installment. This will be a one-page solution without reloading and it’s must.
 You must create API based Customer Installment System with PHP &amp; Javascript. Do it use
 Laravel and for the Frontend you can use Nuxtjs (Vuejs) framework.
