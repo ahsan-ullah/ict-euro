@@ -1,4 +1,4 @@
-
+# Requirements
 Build a System to create Customer Installment. This will be a one-page solution without reloading and it’s must.
 You must create API based Customer Installment System with PHP &amp; Javascript. Do it use
 Laravel and for the Frontend you can use Nuxtjs (Vuejs) framework.
@@ -42,8 +42,12 @@ https://github.com/ahsan-ullah/Larave-Test.git
 
 ## Run the following (quote) commands
 > cp .env.example .env
-- Create a database by laravel_test
-- Update .env file database name to laravel_test
+- Create a database by ict_euro
+- Update .env file database name to ict_euro
+- set Stripe API key and secret in .env file as follows
+* STRIPE_KEY=pk_test_TYooMQauvdEDq54NiTphI7jx
+* STRIPE_SECRET=sk_test_4eC39HqLyjWDarjtT1zdp7dc
+
 > composer install
 - or
 > composer update
@@ -56,12 +60,6 @@ https://github.com/ahsan-ullah/Larave-Test.git
 
 > php artisan serve
 
-> php artisan storage:link
-
-> php artisan queue:listen
-
-> php artisan schedule:work
-
 ## Postman Collection
 Postman Collection Link:
 [Import Postmean Collection](https://www.getpostman.com/collections/c69ac03e69ca2dd85fcc)
@@ -72,7 +70,6 @@ Postman Collection Documentaiont Link:
 [Postmean Collection Documentaiont](https://documenter.getpostman.com/view/1952071/UzJPLv1A)
 https://documenter.getpostman.com/view/1952071/UzJPLv1A
 ## Dependencies
-- PHP 8 or hire
+- PHP 8.1 or hire
 ## License
-
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

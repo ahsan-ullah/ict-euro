@@ -1,9 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 
+use Stripe\Charge;
+use Stripe\Stripe;
+use App\Models\Installment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Installment;
 
 class InstallmentController extends Controller
 {
@@ -128,6 +130,25 @@ class InstallmentController extends Controller
                 'message' => "Customer not found"
             ]);
         }
+    }
+
+    public function payment(Request $request)
+    {
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+    
+        Charge::create ([
+                "amount" => $request->amount,
+                "currency" => "euro",
+                "source" => $request->stripeToken,
+                "description" => "Test payment from ict-euro.com." 
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'data' => [],
+            'errors' => '', 
+            'message' => "An installment payment has been successfully paid",
+        ]);
     }
     
 

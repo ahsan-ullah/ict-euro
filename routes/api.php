@@ -34,6 +34,7 @@ Route::group(['middleware' => ['jwt.verify','throttle:60,1'],'prefix' => 'v1/ins
     Route::get('index',  [InstallmentController::class ,'index']);
     Route::post('create', [InstallmentController::class , 'create']);
     Route::post('search', [InstallmentController::class , 'searchByCustomer']);
+    Route::post('payment', [InstallmentController::class , 'payment']);
     Route::get('show/{id?}',[ InstallmentController::class , 'show'])->name('show-customer');
     Route::post('delete', [InstallmentController::class ,'destroy']);
 });
