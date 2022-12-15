@@ -56,17 +56,18 @@ https://github.com/ahsan-ullah/ict-euro.git
 
 > php artisan migrate
 
+> php artisan db:seed
+
 > php artisan serve
 
-## Postman Collection
-Postman Collection Link:
-[Import Postmean Collection](https://www.getpostman.com/collections/c69ac03e69ca2dd85fcc)
-https://www.getpostman.com/collections/c69ac03e69ca2dd85fcc
+* Use the following authentication
+* Email: ahsanullah716@gmail.com
+* Password: 123456789
 
 ## Postman Collection Documentaiont
 Postman Collection Documentaiont Link:
-[Postmean Collection Documentaiont](https://documenter.getpostman.com/view/1952071/UzJPLv1A)
-https://documenter.getpostman.com/view/1952071/UzJPLv1A
+[Postmean Collection Documentaiont](https://documenter.getpostman.com/view/1952071/2s8YzXtzLp)
+https://documenter.getpostman.com/view/1952071/2s8YzXtzLp
 ## Dependencies
 - PHP 8.1 or hire
 ## License
