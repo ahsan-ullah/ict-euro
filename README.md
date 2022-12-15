@@ -29,22 +29,20 @@ message.
 ● If you can do Unit and Feature Testing, it will be a plus point for you.
 
 ## I used the following
-- Laravel 9.19 (Framework)
+- Laravel 9.43 (Framework)
 - JWT Authentication (Authentication)
-- Laravel Notification (Sending New Post Notification to all users through Database chanel)
-- Laravel Queue (Used for sending Notification)
-- Taravel Task Scheduling (Used to delete 15 days old posts)
 # How to Setup
 1. Pull the repository form 
-https://github.com/ahsan-ullah/Larave-Test.git
+https://github.com/ahsan-ullah/ict-euro.git
 - or Run the following command 
-> git clone https://github.com/ahsan-ullah/Larave-Test.git
+> git clone https://github.com/ahsan-ullah/ict-euro.git
 
 ## Run the following (quote) commands
 > cp .env.example .env
 - Create a database by ict_euro
 - Update .env file database name to ict_euro
 - set Stripe API key and secret in .env file as follows
+
 * STRIPE_KEY=pk_test_TYooMQauvdEDq54NiTphI7jx
 * STRIPE_SECRET=sk_test_4eC39HqLyjWDarjtT1zdp7dc
 

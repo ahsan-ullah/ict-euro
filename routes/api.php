@@ -15,10 +15,10 @@ use App\Models\Installment;
 // });
 
 Route::group(['middleware' => ['api','throttle:60,1'],'prefix' => 'v1/auth'], function ($router) {
-    Route::post('login',  [AuthController::class ,'login'])->name('login');
-    Route::post('logout', [AuthController::class ,'logout']);
-    Route::post('refresh',[AuthController::class ,'refresh']);
-    Route::post('register', [AuthController::class ,'store']);
+    Route::post('login',  [AuthController::class,'login'])->name('login');
+    Route::post('logout', [AuthController::class,'logout']);
+    Route::post('refresh',[AuthController::class,'refresh']);
+    Route::post('register', [AuthController::class,'store']);
 });
 
 Route::group(['middleware' => ['jwt.verify','throttle:60,1'],'prefix' => 'v1/customers'], function ($router) {
@@ -30,11 +30,10 @@ Route::group(['middleware' => ['jwt.verify','throttle:60,1'],'prefix' => 'v1/cus
 });
 
 Route::group(['middleware' => ['jwt.verify','throttle:60,1'],'prefix' => 'v1/installments'], function ($router) {
-    // Customer Route
     Route::get('index',  [InstallmentController::class ,'index']);
     Route::post('create', [InstallmentController::class , 'create']);
     Route::post('search', [InstallmentController::class , 'searchByCustomer']);
     Route::post('payment', [InstallmentController::class , 'payment']);
-    Route::get('show/{id?}',[ InstallmentController::class , 'show'])->name('show-customer');
+    Route::get('show/{id?}',[ InstallmentController::class , 'show'])->name('show-installment');
     Route::post('delete', [InstallmentController::class ,'destroy']);
 });
