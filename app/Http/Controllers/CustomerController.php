@@ -1,9 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
@@ -13,7 +14,6 @@ class CustomerController extends Controller
 
     public function __construct(Customer $customer)
     {
-        $this->middleware('auth:api');
         $this->customer = $customer;
     }
     /**
@@ -41,32 +41,6 @@ class CustomerController extends Controller
         }
     }
 
-    public function searchByPhoneNameEmail($query)
-    {
-        $companies = [];
-        // if (auth()->user()->can('show customers')) {
-            // $companies = $this->company->getAll();
-        // }
-
-        $customers = $this->customer->searchByPhoneNameEmail($query);
-        if (!empty($customers)) {
-            return response()->json([
-                'status' => true,
-                'errors' => [],
-                'data' => $customers,
-                'message' => "Customers successfully loaded"
-            ]);
-        }else{
-            return response()->json([
-                'status' => false,
-                'errors' => [],
-                'data' => $customers,
-                'message' => "Customers not found"
-            ]);
-        }
-    }
-
-
    /**
      * Store a newly created resource in storage.
      *
@@ -76,21 +50,34 @@ class CustomerController extends Controller
 
     public function create(Request $request)
     {
-        $request->validate([
+        $validator= Validator::make($request->all(),[
             'name' => 'required|string|max:100',
-            'phone' => 'required|string|max:20',
+            'phone' => 'required|string|max:20|unique:customers,phone',
             'email' => 'required|email|max:20',
             'address' => 'required|string|max:20'
         ]);
+   
+        if($validator->fails()){
+            return response()->json(['status' =>false ,'message' =>$validator->errors()->first()]);
+        }
+
         $customer = $this->customer::create($request->all());
         return response()->json([
             'status' => true,
             'data' => $customer,
             'errors' => '', 
-            'message' => $request->name." Category has been successfully created",
+            'message' => $request->name." customer has been successfully created",
         ]);
 
     }
+
+    public function getById($id)
+    {
+        return $this->customer::with('installments')
+            ->where('id', $id)
+            ->first();
+    }
+
 
    /**
      * Display the specified resource.
@@ -99,11 +86,9 @@ class CustomerController extends Controller
      * @return \Illuminate\Http\Response
     */
 
-     public function show($id)
+    public function show($id)
     {
-        $customer = $this->customer::with('installments')
-            ->where('id', $id)
-            ->first();
+        $customer = $this->getById($id);
         if (!empty($customer)) {
             return response()->json([
                 'status' => true,
@@ -132,12 +117,30 @@ class CustomerController extends Controller
 
     public function update(Request $request)
     {
-        $customer = $this->customer->update($request->id, $request);
+        $customer = $this->getById($request->id);
+
+        $validator= Validator::make($request->all(),[
+            'name' => 'required|string|max:100',
+            'phone' => 'required|string|max:20',
+            'email' => 'required|email|max:50',
+            'address' => 'required|string|max:150'
+        ]);
+   
+        if($validator->fails()){
+            return response()->json(['status' =>false ,'message' =>$validator->errors()->first()]);
+        }
+        
+      
+        $customer->name = $request->name;
+        $customer->phone = $request->phone;
+        $customer->email = $request->email;
+        $customer->address = $request->address;
+        $customer->update();
         return response()->json([
             'status' => true,
             'data' => $customer,
             'errors' => '', 
-            'message' => $request->name." has been successfully updated",
+            'message' => $customer->name." has been successfully updated",
         ]);
     }
 

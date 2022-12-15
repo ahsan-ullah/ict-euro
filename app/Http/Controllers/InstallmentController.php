@@ -8,6 +8,7 @@ use Stripe\StripeClient;
 use App\Models\Installment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class InstallmentController extends Controller
 {
@@ -15,7 +16,6 @@ class InstallmentController extends Controller
 
     public function __construct(Installment $installment, Payment $payment)
     {
-        $this->middleware('auth:api');
         $this->installment = $installment;
         $this->payment = $payment;
     }
@@ -73,14 +73,7 @@ class InstallmentController extends Controller
      */
 
     public function create(Request $request)
-    {
-        // return $request;
-        // $request->validate([
-        //     'expire_date' => 'required|max:100',
-        //     'amount' => 'required|max:20',
-        //     'note' => 'string|max:200'
-        // ]);
-        
+    {           
         if (count($request->all()) == count($request->all(), COUNT_RECURSIVE)) 
         {
             $installment = $this->installment::create($request->all());

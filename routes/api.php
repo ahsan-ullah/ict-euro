@@ -22,9 +22,9 @@ Route::group(['middleware' => ['api','throttle:60,1'],'prefix' => 'v1/auth'], fu
 });
 
 Route::group(['middleware' => ['jwt.verify','throttle:60,1'],'prefix' => 'v1/customers'], function ($router) {
-    // Customer Route
     Route::get('index',  [CustomerController::class ,'index']);
     Route::post('create', [CustomerController::class , 'create']);
+    Route::post('update', [CustomerController::class , 'update']);
     Route::get('show/{id?}',[ CustomerController::class , 'show'])->name('show-customer');
     Route::post('delete', [CustomerController::class ,'destroy']);
 });
